@@ -1,11 +1,9 @@
 import type { Player } from 'types'
 
-import { useQuery } from 'react-query'
+import players from 'data/players.json'
 
-import { getPlayers } from 'src/lib/players'
-
-const usePlayers = () => {
-  return useQuery<Player[], Error>('Player', getPlayers)
+const usePlayers = (code: string) => {
+  return { data: players.filter((player) => player.ta === code) as Player[] }
 }
 
 export default usePlayers

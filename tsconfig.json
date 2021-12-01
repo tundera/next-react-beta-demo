@@ -15,6 +15,7 @@
     "incremental": true,
     "tsBuildInfoFile": "tsconfig.tsbuildinfo",
     "jsx": "preserve",
+    "types": ["node", "react/next", "react-dom/next"],
     "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

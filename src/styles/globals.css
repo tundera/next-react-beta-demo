@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/** Shout out to Lee Robinson https://github.com/leerob/leerob.io/blob/main/styles/global.css */
 ::selection {
   background-color: #47a3f3;
   color: #fefefe;

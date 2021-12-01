@@ -1,9 +1,8 @@
 import type { AppProps } from 'next/app'
 
-import { useState, Suspense } from 'react'
+import { Suspense } from 'react'
+import { useRouter } from 'next/router'
 import { ThemeProvider } from 'next-themes'
-import { QueryClientProvider, QueryClient, useQueryErrorResetBoundary } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import FullPageSpinner from 'src/components/FullPageSpinner'
@@ -12,28 +11,13 @@ import RootErrorFallback from 'src/components/RootErrorFallback'
 import 'src/styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            retry: 0,
-            suspense: true,
-          },
-        },
-      }),
-  )
-
-  const { reset } = useQueryErrorResetBoundary()
+  const router = useRouter()
 
   return (
-    <ErrorBoundary FallbackComponent={RootErrorFallback} onReset={reset}>
+    <ErrorBoundary FallbackComponent={RootErrorFallback} onReset={() => router.reload()}>
       <Suspense fallback={<FullPageSpinner />}>
         <ThemeProvider attribute="class">
-          <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
+          <Component {...pageProps} />
         </ThemeProvider>
       </Suspense>
     </ErrorBoundary>

@@ -9,25 +9,21 @@ type PlayerCardProps = {
 }
 
 const PlayerCard = ({ player }: PlayerCardProps) => {
-  const { isError, data, error } = useTeam(player.ta)
-
-  if (isError) {
-    return <span>Error: {(error as Error).message}</span>
-  }
+  const { data } = useTeam(player.ta)
 
   return (
-    <article className="flex flex-col justify-end bg-white dark:bg-gray-900 shadow-2xl w-80 h-48 relative">
+    <article className="relative flex flex-col justify-end h-48 bg-white shadow-2xl dark:bg-gray-900 w-80">
       <Image
         src={data?.logo as string}
         alt="Team image"
         layout="fill"
         objectFit="cover"
-        className="opacity-10 -translate-x-4"
+        className="-translate-x-4 opacity-10"
       />
       <div className="pt-2">
-        <div className="flex items-end justify-evenly mx-4">
+        <div className="flex items-end mx-4 justify-evenly">
           <Image
-            src={player.headshot}
+            src={player?.headshot as string}
             alt="Team image"
             layout="fixed"
             width={120}
@@ -35,10 +31,10 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
             objectFit="cover"
           />
           <div className="ml-2">
-            <p className="text-sm md:text-md font-medium w-full text-gray-500 dark:text-gray-400 tracking-tight">
+            <p className="w-full text-sm font-medium tracking-tight text-gray-500 md:text-md dark:text-gray-400">
               #{player.num} | {player.pos}
             </p>
-            <p className="text-md md:text-lg font-medium mb-6 sm:mb-10 w-full text-gray-900 dark:text-gray-100 tracking-tight">
+            <p className="w-full mb-6 font-medium tracking-tight text-gray-900 text-md md:text-lg sm:mb-10 dark:text-gray-100">
               {player.fn} {player.ln}
             </p>
           </div>
@@ -55,18 +51,18 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
         </div>
       </div>
       <div
-        className="grid grid-cols-3 divide-x-2 divide-black text-gray-800 dark:text-gray-200 border-t-4"
+        className="grid grid-cols-3 text-gray-800 border-t-4 divide-x-2 divide-black dark:text-gray-200"
         style={{ borderTopColor: data?.color }}
       >
-        <div className="text-center py-1">
+        <div className="py-1 text-center">
           <p className="text-xs font-bold uppercase">PPG</p>
           <p className="text-xs">{player.pts ?? '---'}</p>
         </div>
-        <div className="text-center py-1">
+        <div className="py-1 text-center">
           <p className="text-xs font-bold uppercase">RPG</p>
           <p className="text-xs">{player.reb ?? '---'}</p>
         </div>
-        <div className="text-center py-1">
+        <div className="py-1 text-center">
           <p className="text-xs font-bold uppercase">APG</p>
           <p className="text-xs">{player.ast ?? '---'}</p>
         </div>

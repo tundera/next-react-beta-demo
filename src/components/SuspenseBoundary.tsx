@@ -1,16 +1,16 @@
 import { Suspense, SuspenseProps } from 'react'
+import { useRouter } from 'next/router'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useQueryErrorResetBoundary } from 'react-query'
 
 import ErrorFallback from 'src/components/ErrorFallback'
 
 type SuspenseBoundaryProps = SuspenseProps
 
 const SuspenseBoundary = ({ fallback, children }: SuspenseBoundaryProps) => {
-  const { reset } = useQueryErrorResetBoundary()
+  const router = useRouter()
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
+    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => router.reload()}>
       <Suspense fallback={fallback}>{children}</Suspense>
     </ErrorBoundary>
   )

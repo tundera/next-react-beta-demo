@@ -1,11 +1,9 @@
 import type { Team } from 'types'
 
-import { useQuery } from 'react-query'
-
-import { getTeamByCode } from 'src/lib/teams'
+import teams from 'data/teams.json'
 
 const useTeam = (code: string) => {
-  return useQuery<Team, Error>(['Team', { abbreviation: code }], () => getTeamByCode(code))
+  return { data: teams.find((team) => team.ta === code) as Team }
 }
 
 export default useTeam

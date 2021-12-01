@@ -20,7 +20,8 @@ export const getTeams = async () => {
 }
 
 export const getTeamByCode = async (code: string) => {
-  const teams = await getTeams()
+  const response = await fetch(`/api/teams/${code}`)
+  const json = await response.json()
 
-  return teams.find((team) => team.ta === code) as Team
+  return json.team as Team
 }
